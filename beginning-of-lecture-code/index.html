@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html ng-app="myFirstApp">
+<html>
 
   <head>
     <meta charset="utf-8">
@@ -9,15 +9,17 @@
     <title>My first AngularJS App</title>
   </head>
 
-  <body>
+  <body ng-app="myFirstApp">
 
       <h1>angular app</h1>
 
-      <div ng-controller="MyFirstController">
-          {{sayHello()}}
+      <div ng-controller="NameCalculartorController">
+          Your Name:
+          <input type="text" ng-model="name" ng-keyup="displayNumericValue();">
+          <div>
 
-          <input type="text" ng-model="name">
-          New value for name: {{name}}
+              New numeric value for name: {{totalValue}}
+          </div>
       </div>
 
   </body>
