@@ -6,14 +6,23 @@
 
     var app = angular.module("myFirstApp",[]);
 
-    app.controller('MyFirstController', function($scope){
+    app.controller('DIController', DIController );
 
+    function DIController($scope, $filter){
         $scope.name = "angular";
 
-        $scope.sayHello = function (){
-            return "hello scope function";
+        $scope.upper = function(){
+            var upCase = $filter('uppercase');
+            $scope.name = upCase($scope.name);
         };
+    }
 
-    });
+    function AnnotateMe(name){
+        return "blahh!!";
+    }
+
+    console.log(AnnotateMe());
+    
+    console.log(AnnotateMe());
 
 }) ();
