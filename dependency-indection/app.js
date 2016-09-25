@@ -22,7 +22,7 @@
     }
 
     console.log(AnnotateMe());
-    
-    console.log(AnnotateMe());
+
+    console.log(DIController);
 
 }) ();
