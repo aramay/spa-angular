@@ -21,6 +21,10 @@
               Message from filter: {{sayMessage()}}
               <br />
               Message from custom filter: {{sayLovesMessage()}}
+              <br />
+              Message from truth filter: {{sayLovesMessage() | truth : "awesome" : "awesome nesss ... "}}
+              <br />
+              Message from NEW truth filter: {{sayLovesMessage() | truth : "awesome" : "awesome nesss ... " | uppercase}}
           </div>
 
           <div>
