@@ -10,10 +10,12 @@
 
     app.filter('loves', LoveFilter);
 
+    app.filter('truth', TruthFilter);
 
-    MsgController.$inject = ['$scope','lovesFilter', '$filter'];
 
-    function MsgController($scope, lovesFilter, $filter){
+    MsgController.$inject = ['$scope','lovesFilter','truthFilter', '$filter'];
+
+    function MsgController($scope, lovesFilter, truthFilter, $filter){
 
         $scope.name = "angular";
         $scope.state = "hungery";
@@ -56,6 +58,18 @@
 
             console.log("input", input);
             return input;
+        };
+    }
+
+    function TruthFilter (){
+        return function (input, target, replace){
+            input = input || "" ;
+
+            input = input.replace(target, replace);
+
+            // console.log("input", input);
+            return input;
+
         };
     }
 
