@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+
+    <title>My first AngularJS App</title>
+  </head>
+
+  <body ng-app="MsgApp">
+
+      <h1>creating custom $filter</h1>
+
+      <div ng-controller="MsgController">
+
+          <div>
+              Message from filter: {{sayMessage()}}
+              <br />
+              Message from custom filter: {{sayLovesMessage()}}
+          </div>
+
+          <div>
+              <button ng-click="feegHungry()">Feed hungry
+              </button>
+              <div>
+                  {{state}}<br />
+                  {{cost | currency : "#blah" : 4}}
+
+              </div>
+          </div>
+      </div>
+
+  </body>
+
+</html>
