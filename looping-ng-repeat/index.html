@@ -13,29 +13,46 @@
 
       <h1>angular app</h1>
 
-      <div ng-controller="BindingController">
+      <div ng-controller="ShoppingListController">
 
-          <button ng-click="displayNumberOfWatcher()"># of watchers
-          </button>
-          <br />
-          <button ng-click="setFullName()">Set full Name
-          </button><br />
+          <!-- <div>
+              <h3>Shopping List 1</h3>
+              <ul>
+                  <li ng-repeat="item in shoppingList1">
+                      {{item}}
 
-          Full Name: {{:: fullName}}
-          <br />
+                  </li>
+              </ul>
 
-          <button ng-click="logFirstName()">Log first name
-          </button>
-          <br />
-          <!-- The problem is, and this is still not showing up here at all, it's just an empty string. Why is that? Why is this happening? Well, part of the reason  -->
-
-          <button ng-click="logFullName()">Log full name
-          </button>
-
-          <div>
-              <input type="text" ng-model="firstName">
           </div>
 
+          <div>
+              <h3>Shopping List 2</h3>
+              <ul>
+                  <li ng-repeat="item in shoppingList2">
+                      {{item.name}}
+
+                  </li>
+              </ul>
+          </div> -->
+          <input type="text" ng-model="shoppingList2[0].quantity" />
+
+          <div>
+              <h3>Shopping List 3</h3>
+              <ul>
+                  <li ng-repeat="item in shoppingList2">{{$index + 1}}
+                      Buy {{item.name}} for $ {{item.quantity}}
+
+                  </li>
+              </ul>
+          </div>
+
+          <div>
+              <input type="text" ng-model="newItemName" placeholder="Item">
+              <input type="text" ng-model="newItemQuantity" placeholder="Quantity">
+
+              <button ng-click="addToList()">Add Item to List</button>
+          </div>
 
       </div>
 
