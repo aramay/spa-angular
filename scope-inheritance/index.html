@@ -11,12 +11,11 @@
 
   <body ng-app="myFirstApp">
 
-      <h1>angular app</h1>
+      <h1>scope inheritance</h1>
 
-      <div ng-controller="NameCalculartorController">
-          Your Name:
-          <input type="text" ng-model="name" ng-keyup="displayNumericValue();">
-          <div>
+      <div ng-controller="ParentController1">
+
+          <div ng-controller="ChildController1">
 
               New numeric value for name: {{totalValue}}
           </div>
