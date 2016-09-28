@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <title>My first AngularJS App</title>
+  </head>
+
+  <body ng-app="myFirstApp">
+
+      <h1>angular app</h1>
+
+      <div ng-controller="BindingController">
+
+          <button ng-click="displayNumberOfWatcher()"># of watchers
+          </button>
+          <br />
+          <button ng-click="setFullName()">Set full Name
+          </button><br />
+
+          Full Name: {{:: fullName}}
+          <br />
+
+          <button ng-click="logFirstName()">Log first name
+          </button>
+          <br />
+          <!-- The problem is, and this is still not showing up here at all, it's just an empty string. Why is that? Why is this happening? Well, part of the reason  -->
+
+          <button ng-click="logFullName()">Log full name
+          </button>
+
+          <div>
+              <input type="text" ng-model="firstName">
+          </div>
+
+
+      </div>
+
+  </body>
+
+</html>
