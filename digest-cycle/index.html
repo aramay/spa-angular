@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <title>My first AngularJS App</title>
+  </head>
+
+  <body ng-app="myFirstApp">
+
+      <h1>digest cycle</h1>
+
+      <div ng-controller="CounterController">
+
+          <button ng-click="showNumberOfWatchers()">
+              Log # of watchers
+          </button>
+
+          <div>
+              <button ng-click="countOnce()">
+                  Up once counter (once)
+              </button>
+          </div>
+
+          <div>
+              <button ng-click="upCounter()">
+                  Increment Counter
+              </button>
+          </div>
+
+
+      </div>
+
+  </body>
+
+</html>
