@@ -11,15 +11,27 @@
 
   <body ng-app="myFirstApp">
 
-      <h1>angular app</h1>
+      <h1>digest cycle</h1>
 
-      <div ng-controller="NameCalculartorController">
-          Your Name:
-          <input type="text" ng-model="name" ng-keyup="displayNumericValue();">
+      <div ng-controller="CounterController">
+
+          <button ng-click="showNumberOfWatchers()">
+              Log # of watchers
+          </button>
+
           <div>
-
-              New numeric value for name: {{totalValue}}
+              <button ng-click="countOnce()">
+                  Up once counter (once)
+              </button>
           </div>
+
+          <div>
+              <button ng-click="upCounter()">
+                  Increment Counter
+              </button>
+          </div>
+
+
       </div>
 
   </body>
