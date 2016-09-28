@@ -31,6 +31,10 @@
               </button>
           </div>
 
+           <!-- The 1-time binding looks very similar to the 1-way binding, except in front of the property name you put double colons. What that tells Angular JS is that it should set up a watcher for this property. But the second this property gets initialized, the AngularJS digest cycle will kick in. It will update that property in our UI, will repaint the  -->
+
+           <!-- However, for things like, let's say, fullname of a user, that is not expected to change throughout the life cycle of your application. Something that we still need to be able to somehow insert into our HTML template. But we don't need to watch that property  -->
+
           <div>
               <!-- Count Once: {{onceCounter}}<br /> -->
               Up Counter: {{counter}}
