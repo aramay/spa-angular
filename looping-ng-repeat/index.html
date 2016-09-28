@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <script src="angular.min.js"></script>
     <script src="app.js"></script>
+    <script src="filter.js"></script>
     <title>My first AngularJS App</title>
   </head>
 
@@ -15,10 +16,12 @@
 
       <div ng-controller="ShoppingListController">
 
-          <!-- <div>
+          <div>
               <h3>Shopping List 1</h3>
+              <input type="text" ng-model="name" />
+
               <ul>
-                  <li ng-repeat="item in shoppingList1">
+                  <li ng-repeat="item in shoppingList1 | filter : name">
                       {{item}}
 
                   </li>
@@ -26,33 +29,8 @@
 
           </div>
 
-          <div>
-              <h3>Shopping List 2</h3>
-              <ul>
-                  <li ng-repeat="item in shoppingList2">
-                      {{item.name}}
 
-                  </li>
-              </ul>
-          </div> -->
-          <input type="text" ng-model="shoppingList2[0].quantity" />
 
-          <div>
-              <h3>Shopping List 3</h3>
-              <ul>
-                  <li ng-repeat="item in shoppingList2">{{$index + 1}}
-                      Buy {{item.name}} for $ {{item.quantity}}
-
-                  </li>
-              </ul>
-          </div>
-
-          <div>
-              <input type="text" ng-model="newItemName" placeholder="Item">
-              <input type="text" ng-model="newItemQuantity" placeholder="Quantity">
-
-              <button ng-click="addToList()">Add Item to List</button>
-          </div>
 
       </div>
 
