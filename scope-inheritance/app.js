@@ -7,6 +7,10 @@
     app.controller('ParentController1', ParentController1);
     app.controller('ChildController1', ChildController1);
 
+    app.controller('ParentController2', ParentController2);
+    app.controller('ChildController2', ChildController2);
+
+
     ParentController1.$inject = ['$scope'];
     function ParentController1 ($scope) {
 
@@ -19,22 +23,39 @@
     ChildController1.$inject = ['$scope'];
     function ChildController1($scope) {
 
-        console.log("$scope.parentValue", $scope.parentValue);
-        console.log("CHILD $scope", $scope);
+        // console.log("$scope.parentValue", $scope.parentValue);
+        // console.log("CHILD $scope", $scope);
+        //
+        //
+        // $scope.parentValue = 5;
+        // console.log("changes: $scope.parentValue = 5");
+        // console.log("$scope.parentValue: ", $scope.parentValue);
+        // console.log($scope);
+        //
+        // console.log("$scope.pc.parentValue: ", $scope.pc.parentValue);
+        //
+        // $scope.pc.parentValue = 5;
+        //
+        // console.log("** CHANGED: $scope.pc.parentValue = 5; **");
+        // console.log("$scope.pc.parentValue: ", $scope.pc.parentValue);
+        // console.log("$scope :", $scope);
+    }
 
+    ParentController2.$inject = ['$scope'];
+    function ParentController2($scope) {
 
-        $scope.parentValue = 5;
-        console.log("changes: $scope.parentValue = 5");
-        console.log("$scope.parentValue: ", $scope.parentValue);
-        console.log($scope);
+        var parent = this;
+        parent.value = 1;
+    }
 
-        console.log("$scope.pc.parentValue: ", $scope.pc.parentValue);
+    ChildController2.$inject = ['$scope'];
+    function ChildController2($scope) {
 
-        $scope.pc.parentValue = 5;
+        var child = this;
+        child.value = 5;
 
-        console.log("** CHANGED: $scope.pc.parentValue = 5; **");
-        console.log("$scope.pc.parentValue: ", $scope.pc.parentValue);
-        console.log("$scope :", $scope);
+        console.log("ChildController2 $scope: ", $scope);
+
     }
 
 }) ();

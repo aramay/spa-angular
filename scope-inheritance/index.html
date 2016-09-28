@@ -21,6 +21,15 @@
           </div>
       </div>
 
+      <div ng-controller="ParentController2 as parent">
+          parent value: {{parent.value}}
+          <div ng-controller="ChildController2 as child">
+
+              child value: {{child.value}}
+              pare value in child controller {{parent.value}}
+          </div>
+      </div>
+
   </body>
 
 </html>
