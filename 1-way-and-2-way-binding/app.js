@@ -4,32 +4,36 @@
 
     var app = angular.module("myFirstApp",[]);
 
-    app.controller('NameCalculartorController', function($scope){
+    app.controller('BindingController', BindingController);
 
-        $scope.name = "";
-        $scope.totalValue = 0;
+    BindingController.$inject = ['$scope'];
 
-        $scope.displayNumericValue = function (){
-            var tempNameValue = calculateNumericForString($scope.name); //get the value
-            console.log(tempNameValue);
+    function BindingController ($scope) {
 
-            $scope.totalValue = tempNameValue;
+        $scope.firstName = "angular";
+        // $scope.fullName = "";
+
+        $scope.displayNumberOfWatcher = function () {
+
+            console.log("# of watchers", $scope.$$watchersCount);
 
         };
 
-        function calculateNumericForString(string){
-            var tempStringValue = 0;
+        $scope.setFullName = function () {
+            $scope.fullName = $scope.firstName + "js";
+        };
 
-            for (var i = 0; i < string.length; i++) {
-                tempStringValue += string.charCodeAt(i);
-            }
+        $scope.logFirstName = function () {
+            console.log("first name", $scope.firstName);
+        };
 
-            console.log(tempStringValue);
+        $scope.logFullName = function () {
+            console.log("full name", $scope.fullName);
+        };
 
-            return tempStringValue;
+        //  So now if we click Set Full Name, you'll see it will appear right here, but if we click log # of Watchers again, it's no longer 2, it's 1. Because once we bounded 1-time bounded to our HTML template, we no longer need that watcher. We could save that performance and remove the watcher from our watchers list. So therefore, that is why we only have 1 here. Meanwhile, the 2-way binding
 
-        }
 
-    });
+    }
 
 }) ();
