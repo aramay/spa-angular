@@ -4,32 +4,37 @@
 
     var app = angular.module("myFirstApp",[]);
 
-    app.controller('NameCalculartorController', function($scope){
+    app.controller('ParentController1', ParentController1);
+    app.controller('ChildController1', ChildController1);
 
-        $scope.name = "";
-        $scope.totalValue = 0;
+    ParentController1.$inject = ['$scope'];
+    function ParentController1 ($scope) {
 
-        $scope.displayNumericValue = function (){
-            var tempNameValue = calculateNumericForString($scope.name); //get the value
-            console.log(tempNameValue);
+        $scope.parentValue = 1;
+        $scope.pc = this;
+        $scope.pc.parentValue = 1;
 
-            $scope.totalValue = tempNameValue;
+    }
 
-        };
+    ChildController1.$inject = ['$scope'];
+    function ChildController1($scope) {
 
-        function calculateNumericForString(string){
-            var tempStringValue = 0;
+        console.log("$scope.parentValue", $scope.parentValue);
+        console.log("CHILD $scope", $scope);
 
-            for (var i = 0; i < string.length; i++) {
-                tempStringValue += string.charCodeAt(i);
-            }
 
-            console.log(tempStringValue);
+        $scope.parentValue = 5;
+        console.log("changes: $scope.parentValue = 5");
+        console.log("$scope.parentValue: ", $scope.parentValue);
+        console.log($scope);
 
-            return tempStringValue;
+        console.log("$scope.pc.parentValue: ", $scope.pc.parentValue);
 
-        }
+        $scope.pc.parentValue = 5;
 
-    });
+        console.log("** CHANGED: $scope.pc.parentValue = 5; **");
+        console.log("$scope.pc.parentValue: ", $scope.pc.parentValue);
+        console.log("$scope :", $scope);
+    }
 
 }) ();
