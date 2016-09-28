@@ -2,37 +2,50 @@
 
     'use strict';
 
+    var shoppingList1 = [
+  "Milk", "Donuts", "Cookies", "Chocolate", "Peanut Butter", "Pepto Bismol", "Pepto Bismol (Chocolate flavor)", "Pepto Bismol (Cookie flavor)"
+];
+
+        var shoppingList2 = [
+      {
+        name: "Milk",
+        quantity: "2"
+      },
+      {
+        name: "Donuts",
+        quantity: "200"
+      },
+      {
+        name: "Cookies",
+        quantity: "300"
+      },
+      {
+        name: "Chocolate",
+        quantity: "5"
+      }
+    ];
+
+
+
     var app = angular.module("myFirstApp",[]);
 
-    app.controller('BindingController', BindingController);
+    app.controller('ShoppingListController', ShoppingListController);
 
-    BindingController.$inject = ['$scope'];
 
-    function BindingController ($scope) {
+    ShoppingListController.$inject = ['$scope'];
+    function ShoppingListController ($scope) {
 
-        $scope.firstName = "angular";
-        // $scope.fullName = "";
+        $scope.shoppingList1 = shoppingList1;
+        $scope.shoppingList2 = shoppingList2;
 
-        $scope.displayNumberOfWatcher = function () {
+        $scope.addToList = function (){
+            var newItem = {
+                name: $scope.newItemName,
+                quantity: $scope.newItemQuantity
+            };
 
-            console.log("# of watchers", $scope.$$watchersCount);
-
+            $scope.shoppingList2.push(newItem);
         };
-
-        $scope.setFullName = function () {
-            $scope.fullName = $scope.firstName + "js";
-        };
-
-        $scope.logFirstName = function () {
-            console.log("first name", $scope.firstName);
-        };
-
-        $scope.logFullName = function () {
-            console.log("full name", $scope.fullName);
-        };
-
-        //  So now if we click Set Full Name, you'll see it will appear right here, but if we click log # of Watchers again, it's no longer 2, it's 1. Because once we bounded 1-time bounded to our HTML template, we no longer need that watcher. We could save that performance and remove the watcher from our watchers list. So therefore, that is why we only have 1 here. Meanwhile, the 2-way binding
-
 
     }
 
