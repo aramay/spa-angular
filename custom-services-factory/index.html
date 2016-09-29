@@ -11,25 +11,45 @@
 
   <body ng-app="myFirstApp">
 
-      <h1>custom service</h1>
+      <h1>custom service through factory</h1>
 
-      <div ng-controller="ShowListAddController as itemAdder">
+      <div ng-controller="ShowListController1 as list1">
 
-          <input type="text" ng-model="itemAdder.itemName" placeholder="Item Name"/>
+          <input type="text" ng-model="list1.itemName" placeholder="Item Name"/>
 
-          <input type="text" ng-model="itemAdder.itemQuantity" placeholder="Item Quantity"/>
+          <input type="text" ng-model="list1.itemQuantity" placeholder="Item Quantity"/>
 
-          <button ng-click="itemAdder.addItem()">
+          <button ng-click="list1.addItem()">
               Add item
           </button>
-      </div>
 
-      <div ng-controller="ShowListShowController as showList">
           <ul>
-              <li ng-repeat="item in showList.items">
+              <li ng-repeat="item in list1.items">
                   {{item.quantity}} of {{item.name}}
 
-                  <button ng-click="showList.removeItem($index)">
+                  <button ng-click="list1.removeItem($index)">
+                      Remove Item
+                  </button>
+              </li>
+          </ul>
+      </div>
+
+      <div ng-controller="ShowListController2 as list2">
+
+          <input type="text" ng-model="list2.itemName" placeholder="Item Name"/>
+
+          <input type="text" ng-model="list2.itemQuantity" placeholder="Item Quantity"/>
+
+          <button ng-click="list2.addItem()">
+              Add item
+          </button>
+
+
+          <ul>
+              <li ng-repeat="item in list2.items">
+                  {{item.quantity}} of {{item.name}}
+
+                  <button ng-click="list2.removeItem($index)">
                       Remove Item
                   </button>
               </li>
