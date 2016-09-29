@@ -4,32 +4,71 @@
 
     var app = angular.module("myFirstApp",[]);
 
-    app.controller('NameCalculartorController', function($scope){
+    app.controller('ShowListAddController', ShowListAddController);
+    app.controller('ShowListShowController', ShowListShowController);
 
-        $scope.name = "";
-        $scope.totalValue = 0;
+    app.service('ShoppingListService', ShoppingListService);
 
-        $scope.displayNumericValue = function (){
-            var tempNameValue = calculateNumericForString($scope.name); //get the value
-            console.log(tempNameValue);
 
-            $scope.totalValue = tempNameValue;
+
+    ShowListAddController.$inject = ['ShoppingListService'];
+
+    function ShowListAddController (ShoppingListService) {
+
+        var itemAdder = this;
+
+        itemAdder.itemName = "";
+        itemAdder.itemQuantity = "";
+
+        itemAdder.addItem = function () {
+            console.log("add item service");
+
+            ShoppingListService.addItem(itemAdder.itemName, itemAdder.itemQuantity);
+        };
+
+
+    }
+
+    ShowListShowController.$inject = ['ShoppingListService'];
+
+    function ShowListShowController(ShoppingListService) {
+
+        var showList = this;
+
+        showList.items = ShoppingListService.getItems();
+
+        showList.removeItem = function (itemIndex) {
+            ShoppingListService.removeItem(itemIndex);
+        };
+
+    }
+
+    function ShoppingListService() {
+
+        var service = this;
+        // List of items
+        var items = [];
+
+        service.addItem = function (itemName, itemQuantity) {
+
+            var item = {
+                name: itemName,
+                quantity: itemQuantity
+            };
+            items.push(item);
+            console.log(items);
+        };
+
+        service.getItems = function () {
+            return items;
+        };
+
+        service.removeItem = function (itemIndex) {
+
+            items.splice(itemIndex, 1);
 
         };
 
-        function calculateNumericForString(string){
-            var tempStringValue = 0;
-
-            for (var i = 0; i < string.length; i++) {
-                tempStringValue += string.charCodeAt(i);
-            }
-
-            console.log(tempStringValue);
-
-            return tempStringValue;
-
-        }
-
-    });
+    }
 
 }) ();
