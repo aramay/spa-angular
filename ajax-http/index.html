@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <title>My first AngularJS App</title>
+  </head>
+
+  <body ng-app="myFirstApp">
+
+      <h1>Using $http service</h1>
+
+      <div ng-controller="MenuCategoriesController as menu">
+          <h3>list of menu categories</h3>
+          <ul>
+              <li ng-repeat="category in menu.categories">
+                  {{category}}
+              </li>
+          </ul>
+      </div>
+
+
+
+  </body>
+
+</html>
