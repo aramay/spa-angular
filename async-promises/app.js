@@ -34,25 +34,47 @@
 
         var list = [];
 
+        // service.addItem = function (itemName, itemQuantity) {
+        //     var promise = WeightLossFilterService.checkName(itemName);
+        //
+        //     promise.then(function (response) {
+        //
+        //         var nextPromise = WeightLossFilterService.checkQuantity(itemQuantity);
+        //
+        //         nextPromise.then(function (result) {
+        //             var item = {
+        //                 name: itemName,
+        //                 quantity: itemQuantity
+        //             };
+        //             list.push(item);
+        //
+        //         }, function (errorResponse) {
+        //             console.log(errorResponse.message);
+        //         });
+        //
+        //     }, function (errorResponse) {
+        //         console.log(errorResponse.message);
+        //     });
+        //
+        // };
+
         service.addItem = function (itemName, itemQuantity) {
             var promise = WeightLossFilterService.checkName(itemName);
 
             promise.then(function (response) {
 
-                var nextPromise = WeightLossFilterService.checkQuantity(itemQuantity);
+                return WeightLossFilterService.checkQuantity(itemQuantity);
+            })
 
-                nextPromise.then(function (result) {
-                    var item = {
-                        name: itemName,
-                        quantity: itemQuantity
-                    };
-                    list.push(item);
+            .then(function (response) {
+                var item = {
+                    name: itemName,
+                    quantity: itemQuantity
+                };
+                list.push(item);
+            })
 
-                }, function (errorResponse) {
-                    console.log(errorResponse.message);
-                });
-
-            }, function (errorResponse) {
+            .catch(function (errorResponse) {
                 console.log(errorResponse.message);
             });
 
