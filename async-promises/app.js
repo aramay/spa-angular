@@ -4,123 +4,45 @@
 
     var app = angular.module("myFirstApp",[]);
 
-    app.controller('ShowListController1', ShowListController1);
-    app.controller('ShowListController2', ShowListController2);
+    app.controller('ShowListController', ShowListController);
+    app.service('ShoppingListService', ShoppingListService);
 
-    // app.service('ShoppingListService', ShoppingListService);
-    app.factory('ShoppingListFactory', ShoppingListFactory);
+    ShowListController.$inject = ['ShoppingListService'];
+    function ShowListController(ShoppingListService) {
 
+        var list = this;
 
+        list.itemName = "";
+        list.itemQuantity = 0;
 
-    ShowListController1.$inject = ['ShoppingListFactory'];
-
-    function ShowListController1 (ShoppingListFactory) {
-
-        // var itemAdder = this;
-        var list1 = this;
-        // use factory to create new shopping list1
-        var shoppingList = ShoppingListFactory();
-
-
-        list1.itemName = "";
-        list1.itemQuantity = "";
-
-        list1.addItem = function () {
-            console.log("add item service");
-
-            shoppingList.addItem(list1.itemName, list1.itemQuantity);
+        list.addItem = function () {
+            ShoppingListService.addItem(list.itemName, list.itemQuantity);
         };
 
-        list1.removeItem = function (itemIndex) {
-            shoppingList.removeItem(itemIndex);
-
-        };
-        // retrieve items to display
-        list1.items = shoppingList.getItems();
-
+        list.items = ShoppingListService.getItems();
 
     }
 
-    ShowListController2.$inject = ['ShoppingListFactory'];
-
-    function ShowListController2(ShoppingListFactory) {
-
-        var list2 = this;
-
-        list2.itemName = "";
-        list2.itemQuantity = "";
-
-        // use factory to create new shopping list2 with limited items
-        var shoppingList = ShoppingListFactory(3);
-        console.log(shoppingList);
-
-        list2.items = shoppingList.getItems();
-
-
-        list2.removeItem = function (itemIndex) {
-            shoppingList.removeItem(itemIndex);
-        };
-
-        list2.addItem = function () {
-            try {
-                shoppingList.addItem(list2.itemName, list2.itemQuantity);
-
-            } catch (e) {
-                list2.errorMessage = e.message;
-                console.log(e.message);
-            }
-        };
-
-    }
-
-    function ShoppingListService(maxItems) {
+    function ShoppingListService() {
 
         var service = this;
-        // List of items
-        var items = [];
+
+        var list = [];
 
         service.addItem = function (itemName, itemQuantity) {
+            var item = {
+                name: itemName,
+                quantity: itemQuantity
+            };
 
-            if (maxItems === undefined) {
-                var item = {
-                    name: itemName,
-                    quantity: itemQuantity
-                };
-                items.push(item);
-                console.log(items);
-
-            } else if (maxItems !== undefined && items.length < maxItems) {
-
-                var item1 = {
-                    name: itemName,
-                    quantity: itemQuantity
-                };
-                items.push(item1);
-                console.log(items);
-            }
-            else {
-                throw new Error("max items (" + maxItems + ") reached");
-            }
+            list.push(item);
         };
 
         service.getItems = function () {
-            return items;
-        };
 
-        service.removeItem = function (itemIndex) {
-
-            items.splice(itemIndex, 1);
+            return list;
 
         };
-
-    }
-
-    function ShoppingListFactory() {
-        var factory = function (maxItems) {
-            return new ShoppingListService(maxItems);
-
-        };
-        return factory;
     }
 
 }) ();
