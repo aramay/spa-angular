@@ -58,15 +58,42 @@
         //
         // };
 
+        // service.addItem = function (itemName, itemQuantity) {
+        //     var promise = WeightLossFilterService.checkName(itemName);
+        //
+        //     promise.then(function (response) {
+        //
+        //         return WeightLossFilterService.checkQuantity(itemQuantity);
+        //     })
+        //
+        //     .then(function (response) {
+        //         var item = {
+        //             name: itemName,
+        //             quantity: itemQuantity
+        //         };
+        //         list.push(item);
+        //     })
+        //
+        //     .catch(function (errorResponse) {
+        //         console.log(errorResponse.message);
+        //     });
+        //
+        // };
+        //
+        // service.getItems = function () {
+        //
+        //     return list;
+        //
+        // };
+
         service.addItem = function (itemName, itemQuantity) {
-            var promise = WeightLossFilterService.checkName(itemName);
 
-            promise.then(function (response) {
+            // capturing the main promise which is the return result of the weightless filter service checkName method that returns a promise. And then we're going to capture the quantityPromise, which is the result of executing WeightLossFilterService.checkQuantity method.
 
-                return WeightLossFilterService.checkQuantity(itemQuantity);
-            })
+            var namePromise = WeightLossFilterService.checkName(itemName);
+            var quantityPromise = WeightLossFilterService.checkQuantity(itemQuantity);
 
-            .then(function (response) {
+            $q.all([namePromise, quantityPromise]).then(function (response) {
                 var item = {
                     name: itemName,
                     quantity: itemQuantity
