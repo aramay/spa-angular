@@ -9,24 +9,18 @@
 
     // app.service('ShoppingListService', ShoppingListService);
     app.factory('ShoppingListFactory', ShoppingListFactory);
-    app.directive('listItemDescription', ListItemDescription);
-    app.directive('listItem', ListItem);
+    app.directive('shoppingList', ShoppingList);
 
-    function ListItem() {
+    function ShoppingList() {
         var ddo = {
-            restrict: 'E',
-            templateUrl: 'listItem.html'
+            templateUrl: 'shopppingList.html',
+            scope: {
+                list: '=myList',
+                title: '@title'
+            }
         };
         return ddo;
     }
-
-    function ListItemDescription() {
-        var ddo = {
-            template: '{{item.quantity}} of {{item.name}}'
-        };
-        return ddo;
-    }
-
 
     ShowListController1.$inject = ['ShoppingListFactory'];
 
@@ -37,22 +31,31 @@
         // use factory to create new shopping list1
         var shoppingList = ShoppingListFactory();
 
+        // retrieve items to display
+        list1.items = shoppingList.getItems();
+
+        var orgTitle = "Shopping List#1 - unlimited";
+
+        list1.title = orgTitle +" "+ list1.items.length + " items";
 
         list1.itemName = "";
         list1.itemQuantity = "";
+
 
         list1.addItem = function () {
             console.log("add item service");
 
             shoppingList.addItem(list1.itemName, list1.itemQuantity);
+
+            list1.title = orgTitle + list1.items.length + " items";
         };
 
         list1.removeItem = function (itemIndex) {
             shoppingList.removeItem(itemIndex);
 
+            list1.title = orgTitle + list1.items.length + " items";
+
         };
-        // retrieve items to display
-        list1.items = shoppingList.getItems();
 
 
     }
