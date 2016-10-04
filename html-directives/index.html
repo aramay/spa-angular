@@ -26,16 +26,10 @@
           </button>
 
           <ul>
-              <li ng-repeat="item in list1.items">
-                  <!-- {{item.quantity}} of {{item.name}} -->
-                  <list-item-description>
-                  </list-item-description>
-
-                  <button ng-click="list1.removeItem($index)">
-                      Remove Item
-                  </button>
-              </li>
+              <list-item ng-repeat="item in list1.items">
+              </list-item>
           </ul>
+
           <div class="error" ng-if="list1.errorMessage">Error: {{list1.errorMessage}}
 
           </div>
