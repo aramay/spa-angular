@@ -25,6 +25,19 @@
             console.log(error);
             console.log("http request failed .. !!");
         });
+
+        menu.logMenuItems = function (shortName) {
+
+            var promise = MenuCategoriesService.logMenuItems(shortName);
+
+            promise.then(function (response) {
+                console.log(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        };
+
+
     }
 
     // we're injecting it with this service called WeightLossFilterService.
@@ -41,7 +54,20 @@
             });
             return response;
         };
+
+        service.logMenuItems = function (shortName) {
+            var response = $http({
+                method: "GET",
+                url: (ApiBasePath + "/menu_items.json"),
+                params: {
+                    category: shortName
+                }
+            });
+
+            return response;
+        };
     }
+
 
 
 }) ();
