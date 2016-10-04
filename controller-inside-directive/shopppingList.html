@@ -1,11 +1,13 @@
 <ul>
     <!-- this title name is coming from our directive when we gave it the title property on our scope. -->
-    <h3>{{title}}</h3>
+    <h3>{{list.title}}</h3>
     <li ng-repeat="item in list.items">
         {{item.quantity}} of {{item.name}}
 
-        <button ng-click="list.removeItem($index)">
+        <!-- <button ng-click="list.removeItem($index)">
             Remove Item
-        </button>
+        </button> -->
     </li>
 </ul>
+
+<div class="error" ng-if="list.cookiesInList()">Error: No cookie ALLOWED !!</div>
