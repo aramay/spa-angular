@@ -10,6 +10,14 @@
     // app.service('ShoppingListService', ShoppingListService);
     app.factory('ShoppingListFactory', ShoppingListFactory);
     app.directive('listItemDescription', ListItemDescription);
+    app.directive('listItem', ListItem);
+
+    function ListItem() {
+        var ddo = {
+            templateUrl: 'listItem.html'
+        };
+        return ddo;
+    }
 
     function ListItemDescription() {
         var ddo = {
