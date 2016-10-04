@@ -9,7 +9,14 @@
 
     // app.service('ShoppingListService', ShoppingListService);
     app.factory('ShoppingListFactory', ShoppingListFactory);
+    app.directive('listItemDescription', ListItemDescription);
 
+    function ListItemDescription() {
+        var ddo = {
+            template: '{{item.quantity}} of {{item.name}}'
+        };
+        return ddo;
+    }
 
 
     ShowListController1.$inject = ['ShoppingListFactory'];
