@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>My first AngularJS App</title>
+  </head>
+
+  <body ng-app="myFirstApp">
+
+      <h1>HTML Directives</h1>
+      <!-- LIST #1 - unlimited items -->
+
+      <div id="list1" ng-controller="ShowListController1 as list1">
+          <h3>Shopping List#1 - unlimited items</h3>
+          <input type="text" ng-model="list1.itemName" placeholder="Item Name"/>
+
+          <input type="text" ng-model="list1.itemQuantity" placeholder="Item Quantity"/>
+
+          <button ng-click="list1.addItem()">
+              Add item
+          </button>
+
+          <ul>
+              <list-item ng-repeat="item in list1.items">
+              </list-item>
+          </ul>
+
+          <div class="error" ng-if="list1.errorMessage">Error: {{list1.errorMessage}}
+
+          </div>
+      </div>
+      <!-- LIST #2 - limited to 3 items -->
+      <div id="list2" ng-controller="ShowListController2 as list2">
+          <h3>Shopping List#2 - limited to 3 items</h3>
+          <input type="text" ng-model="list2.itemName" placeholder="Item Name"/>
+
+          <input type="text" ng-model="list2.itemQuantity" placeholder="Item Quantity"/>
+
+          <button ng-click="list2.addItem()">
+              Add item
+          </button>
+
+
+          <ul>
+              <li ng-repeat="item in list2.items">
+                  <!-- {{item.quantity}} of {{item.name}} -->
+                  <list-item-description>
+                  </list-item-description>
+
+                  <button ng-click="list2.removeItem($index)">
+                      Remove Item
+                  </button>
+              </li>
+          </ul>
+          <div class="error" ng-if="list2.errorMessage">Error: {{list2.errorMessage}}
+
+          </div>
+
+      </div>
+
+  </body>
+
+</html>

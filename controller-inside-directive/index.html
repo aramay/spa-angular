@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>My first AngularJS App</title>
+  </head>
+
+  <body ng-app="myFirstApp">
+
+      <h1>Controller inside directive</h1>
+      <!-- LIST #1 - unlimited items -->
+
+      <div id="list1" ng-controller="ShowListController1 as list">
+
+          <input type="text" ng-model="list.itemName" placeholder="Item Name"/>
+
+          <input type="text" ng-model="list.itemQuantity" placeholder="Item Quantity"/>
+
+          <button ng-click="list.addItem()">
+              Add item
+          </button>
+
+          <shopping-list items="list.items" title="{{list.title}}"></shopping-list>
+
+
+
+          </div>
+      </div>
+
+
+      </div>
+
+  </body>
+
+</html>
