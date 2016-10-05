@@ -16,7 +16,10 @@
             templateUrl: 'shopppingList.html',
             scope: {
                 items: '<',
-                title: '@'
+                title: '@',
+                // create a badRemove property, and we're going to use an equal sign. So it will be a bidirectional binding, and the function value of that remove that we're going to pass in is going to be equal to this badRemove property.
+                badRemove: '=',
+                onRemove: '&'
             },
             controller: ShoppingListDirectiveController,
             controllerAs: 'list',
@@ -72,9 +75,15 @@
         };
 
         list.removeItem = function (itemIndex) {
+
+            console.log("this is: ", this);
+
+            this.lastRemoved = "last removed was " + this.items[itemIndex].name;
+
             shoppingList.removeItem(itemIndex);
 
-            list.title = orgTitle + list.items.length + " items";
+            // list.title = orgTitle + list.items.length + " items";
+            this.title = orgTitle + list.items.length + " items";
 
         };
 
