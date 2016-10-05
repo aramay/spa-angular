@@ -4,9 +4,14 @@
     <li ng-repeat="item in list.items">
         {{item.quantity}} of {{item.name}}
 
-        <!-- <button ng-click="list.removeItem($index)">
-            Remove Item
+        <!-- <button ng-click="list.badRemove($index)">
+            Bad Remove Item
         </button> -->
+
+        <button ng-click="list.onRemove({index: $index})">
+            Remove Item
+        </button>
+
     </li>
 </ul>
 
