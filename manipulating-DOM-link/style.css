@@ -10,4 +10,5 @@ body {
 
 .error {
   color: red;
+  display: none;
 }
