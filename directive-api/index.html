@@ -25,10 +25,15 @@
               Add item
           </button>
 
-          <shopping-list items="list.items" title="{{list.title}}"></shopping-list>
+          <span>
+              {{list.lastRemoved}}
+          </span>
+          <shopping-list items="list.items" title="{{list.title}}" bad-remove="list.removeItem" on-remove="list.removeItem(index)">
+
+          </shopping-list>
 
 
-
+                    {{list}}
           </div>
       </div>
 
