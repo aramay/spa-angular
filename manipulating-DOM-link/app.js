@@ -23,9 +23,42 @@
             },
             controller: ShoppingListDirectiveController,
             controllerAs: 'list',
-            bindToController: true
+            bindToController: true,
+            link: ShoppingListDirectiveLink
         };
         return ddo;
+    }
+
+    function ShoppingListDirectiveLink(scope, element, attrs, controller) {
+        console.log("link scope is ", scope);
+        console.log("controller instance is ", controller);
+        console.log("element is ", element);
+
+        scope.$watch('list.cookiesInList()', function (newValue, oldValue) {
+
+            if (newValue === true) {
+                displayCookieWarning();
+            }else {
+                removeCookieWarning();
+            }
+        });
+
+        function displayCookieWarning() {
+            //using angularjs lite
+            // var warnElem = element.find("div");
+            // console.log("warning element", warnElem);
+            // warnElem.css('display', 'block');
+
+            //using jquery
+            var warnElem = element.find("div.error");
+            warnElem.slideDown(900);
+        }
+
+        function removeCookieWarning() {
+            var warnElem = element.find("div.error");
+            // warnElem.css('display', 'none');
+            warnElem.slideUp(1000);
+        }
     }
 
     function ShoppingListDirectiveController() {
