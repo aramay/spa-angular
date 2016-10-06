@@ -22,8 +22,8 @@
     });
 
 
-
-    function ShoppingListComponentController() {
+    ShoppingListComponentController.$inject = ['$scope', '$element']
+    function ShoppingListComponentController($scope, $element) {
 
         var $ctrl = this;
 
@@ -51,7 +51,24 @@
         };
 
         $ctrl.$onChanges = function (changeObj) {
-            console.log(changeObj);
+            console.log("changes ", changeObj);
+        };
+
+        $ctrl.$postLink = function () {
+            $scope.$watch('$ctrl.cookiesInList()', function (newValue, oldValue) {
+
+                // item right here. And that is coming from the $post link. So, that's how we get the parent item or the top item of our component.
+                console.log($element);
+
+                if (newValue === true) {
+                    var warnEle = $element.find('div.error');
+                    warnEle.slideDown(900);
+                }
+                else{
+                    var hideEle = $element.find('div.error');
+                    hideEle.slideUp(900);
+                }
+            });
         };
     }
 
