@@ -46,13 +46,13 @@
             $ctrl.onRemove({index: myIndex});
         };
 
-        // $ctrl.$onInit = function () {
-        //     console.log("we'r on onInit()");
-        // };
-        //
-        // $ctrl.$onChanges = function (changeObj) {
-        //     console.log(changeObj);
-        // };
+        $ctrl.$onInit = function () {
+            console.log("we'r on onInit()");
+        };
+
+        $ctrl.$onChanges = function (changeObj) {
+            console.log(changeObj);
+        };
     }
 
     ShowListController1.$inject = ['ShoppingListFactory'];
