@@ -9,34 +9,29 @@
 
     // app.service('ShoppingListService', ShoppingListService);
     app.factory('ShoppingListFactory', ShoppingListFactory);
-    app.directive('shoppingList', ShoppingListDirective);
+    app.component('shoppingList', {
+        templateUrl: 'shopppingList.html',
+        controller: ShoppingListComponentController,
+        bindings: {
+            items: '<',
+            title: '@',
+            // create a badRemove property, and we're going to use an equal sign. So it will be a bidirectional binding, and the function value of that remove that we're going to pass in is going to be equal to this badRemove property.
+            badRemove: '=',
+            onRemove: '&'
+        }
+    });
 
-    function ShoppingListDirective() {
-        var ddo = {
-            templateUrl: 'shopppingList.html',
-            scope: {
-                items: '<',
-                title: '@',
-                // create a badRemove property, and we're going to use an equal sign. So it will be a bidirectional binding, and the function value of that remove that we're going to pass in is going to be equal to this badRemove property.
-                badRemove: '=',
-                onRemove: '&'
-            },
-            controller: ShoppingListDirectiveController,
-            controllerAs: 'list',
-            bindToController: true
-        };
-        return ddo;
-    }
 
-    function ShoppingListDirectiveController() {
 
-        var list = this;
+    function ShoppingListComponentController() {
 
-        console.log(list.items);
+        var $ctrl = this;
 
-        list.cookiesInList = function () {
-            for (var i = 0; i < list.items.length; i++) {
-              var name = list.items[i].name;
+        console.log($ctrl.items);
+
+        $ctrl.cookiesInList = function () {
+            for (var i = 0; i < $ctrl.items.length; i++) {
+              var name = $ctrl.items[i].name;
               if (name.toLowerCase().indexOf("cookie") !== -1) {
                 return true;
               }
@@ -44,6 +39,20 @@
 
             return false;
         };
+
+        // the key value here who's key has to match whatever it is the name that we used in the binding, unremoved binding of our shopping list components.
+        $ctrl.remove = function (myIndex) {
+            // Which calls the reference function that was passed in from the parent controller with the map of key value.
+            $ctrl.onRemove({index: myIndex});
+        };
+
+        // $ctrl.$onInit = function () {
+        //     console.log("we'r on onInit()");
+        // };
+        //
+        // $ctrl.$onChanges = function (changeObj) {
+        //     console.log(changeObj);
+        // };
     }
 
     ShowListController1.$inject = ['ShoppingListFactory'];
