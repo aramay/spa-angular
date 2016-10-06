@@ -22,10 +22,11 @@
     });
 
 
-    ShoppingListComponentController.$inject = ['$scope', '$element']
+    ShoppingListComponentController.$inject = ['$scope', '$element'];
     function ShoppingListComponentController($scope, $element) {
 
         var $ctrl = this;
+        var totalItems;
 
         console.log($ctrl.items);
 
@@ -48,28 +49,30 @@
 
         $ctrl.$onInit = function () {
             console.log("we'r on onInit()");
+            totalItems = 0;
         };
 
         $ctrl.$onChanges = function (changeObj) {
             console.log("changes ", changeObj);
         };
 
-        $ctrl.$postLink = function () {
-            $scope.$watch('$ctrl.cookiesInList()', function (newValue, oldValue) {
+        // $ctrl.$postLink = function () {
+        //     $scope.$watch('$ctrl.cookiesInList()', function (newValue, oldValue) {
+        //
+        //         // item right here. And that is coming from the $post link. So, that's how we get the parent item or the top item of our component.
+        //         console.log($element);
+        //
+        //         if (newValue === true) {
+        //             var warnEle = $element.find('div.error');
+        //             warnEle.slideDown(900);
+        //         }
+        //         else{
+        //             var hideEle = $element.find('div.error');
+        //             hideEle.slideUp(900);
+        //         }
+        //     });
+        // };
 
-                // item right here. And that is coming from the $post link. So, that's how we get the parent item or the top item of our component.
-                console.log($element);
-
-                if (newValue === true) {
-                    var warnEle = $element.find('div.error');
-                    warnEle.slideDown(900);
-                }
-                else{
-                    var hideEle = $element.find('div.error');
-                    hideEle.slideUp(900);
-                }
-            });
-        };
     }
 
     ShowListController1.$inject = ['ShoppingListFactory'];
