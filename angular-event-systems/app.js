@@ -20,7 +20,7 @@ angular.module('ShoppingListEventsApp', [])
 });
 
 
-SpinnerController.$inject = ['$rootScope']
+SpinnerController.$inject = ['$rootScope'];
 function SpinnerController($rootScope) {
   var $ctrl = this;
 
@@ -40,10 +40,11 @@ function SpinnerController($rootScope) {
     cancelListener();
   };
 
-};
+}
 
 
-ShoppingListComponentController.$inject = ['$rootScope', '$element', '$q', 'WeightLossFilterService']
+ShoppingListComponentController.$inject = ['$rootScope', '$element', '$q', 'WeightLossFilterService'];
+
 function ShoppingListComponentController($rootScope, $element, $q, WeightLossFilterService) {
   var $ctrl = this;
   var totalItems;
@@ -57,6 +58,7 @@ function ShoppingListComponentController($rootScope, $element, $q, WeightLossFil
     if ($ctrl.items.length !== totalItems) {
       totalItems = $ctrl.items.length;
 
+      
       $rootScope.$broadcast('shoppinglist:processing', {on: true});
       var promises = [];
       for (var i = 0; i < $ctrl.items.length; i++) {
@@ -103,7 +105,7 @@ function ShoppingListController(ShoppingListFactory) {
   list.addItem = function () {
     shoppingList.addItem(list.itemName, list.itemQuantity);
     list.title = origTitle + " (" + list.items.length + " items )";
-  }
+};
 
   list.removeItem = function (itemIndex) {
     this.lastRemoved = "Last item removed was " + this.items[itemIndex].name;
@@ -153,7 +155,7 @@ function ShoppingListFactory() {
 }
 
 
-WeightLossFilterService.$inject = ['$q', '$timeout']
+WeightLossFilterService.$inject = ['$q', '$timeout'];
 function WeightLossFilterService($q, $timeout) {
   var service = this;
 
@@ -167,7 +169,7 @@ function WeightLossFilterService($q, $timeout) {
     $timeout(function () {
       // Check for cookies
       if (name.toLowerCase().indexOf('cookie') === -1) {
-        deferred.resolve(result)
+        deferred.resolve(result);
       }
       else {
         result.message = "Stay away from cookies, Yaakov!";
