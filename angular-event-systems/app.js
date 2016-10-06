@@ -1,224 +1,203 @@
-(function(){
+(function () {
+'use strict';
 
-    'use strict';
-
-    var app = angular.module("myFirstApp",[]);
-
-    app.controller('ShowListController1', ShowListController1);
-    // app.controller('ShowListController2', ShowListController2);
-
-    // app.service('ShoppingListService', ShoppingListService);
-    app.factory('ShoppingListFactory', ShoppingListFactory);
-    app.component('shoppingList', {
-        templateUrl: 'shopppingList.html',
-        controller: ShoppingListComponentController,
-        bindings: {
-            items: '<',
-            title: '@',
-            // create a badRemove property, and we're going to use an equal sign. So it will be a bidirectional binding, and the function value of that remove that we're going to pass in is going to be equal to this badRemove property.
-            badRemove: '=',
-            onRemove: '&'
-        }
-    });
+angular.module('ShoppingListEventsApp', [])
+.controller('ShoppingListController', ShoppingListController)
+.factory('ShoppingListFactory', ShoppingListFactory)
+.service('WeightLossFilterService', WeightLossFilterService)
+.component('shoppingList', {
+  templateUrl: 'shoppingList.html',
+  controller: ShoppingListComponentController,
+  bindings: {
+    items: '<',
+    myTitle: '@title',
+    onRemove: '&'
+  }
+})
+.component('loadingSpinner', {
+  templateUrl: 'spinner.html',
+  controller: SpinnerController
+});
 
 
-    ShoppingListComponentController.$inject = ['$element'];
-    function ShoppingListComponentController($element) {
+SpinnerController.$inject = ['$rootScope']
+function SpinnerController($rootScope) {
+  var $ctrl = this;
 
-        var $ctrl = this;
-        var totalItems;
+  var cancelListener = $rootScope.$on('shoppinglist:processing', function (event, data) {
+    console.log("Event: ", event);
+    console.log("Data: ", data);
 
-        console.log($ctrl.items);
-
-        $ctrl.cookiesInList = function () {
-            for (var i = 0; i < $ctrl.items.length; i++) {
-              var name = $ctrl.items[i].name;
-              if (name.toLowerCase().indexOf("cookie") !== -1) {
-                return true;
-              }
-            }
-
-            return false;
-        };
-
-        // the key value here who's key has to match whatever it is the name that we used in the binding, unremoved binding of our shopping list components.
-        $ctrl.remove = function (myIndex) {
-            // Which calls the reference function that was passed in from the parent controller with the map of key value.
-            $ctrl.onRemove({index: myIndex});
-        };
-
-        $ctrl.$onInit = function () {
-            console.log("we'r on onInit()");
-            totalItems = 0;
-        };
-
-        $ctrl.$onChanges = function (changeObj) {
-            console.log("changes ", changeObj);
-        };
-
-        // $ctrl.$postLink = function () {
-        //     $scope.$watch('$ctrl.cookiesInList()', function (newValue, oldValue) {
-        //
-        //         // item right here. And that is coming from the $post link. So, that's how we get the parent item or the top item of our component.
-        //         console.log($element);
-        //
-        //         if (newValue === true) {
-        //             var warnEle = $element.find('div.error');
-        //             warnEle.slideDown(900);
-        //         }
-        //         else{
-        //             var hideEle = $element.find('div.error');
-        //             hideEle.slideUp(900);
-        //         }
-        //     });
-        // };
-
-        $ctrl.$doCheck = function () {
-            if($ctrl.items.length !== totalItems) {
-                console.log("# of items changed, checking for cookies");
-                totalItems = $ctrl.items.length;
-
-                console.log("DOM element ", $element);
-
-                if ($ctrl.cookiesInList()) {
-                    console.log("no cookie");
-                    var warnEle = $element.find('div.error');
-                    warnEle.slideDown(900);
-                }
-                else{
-                    console.log("no cookie here, move along");
-                    var warnEle = $element.find('div.error');
-                    warnEle.slideUp(900);
-                }
-            }
-        };
-
+    if (data.on) {
+      $ctrl.showSpinner = true;
     }
-
-    ShowListController1.$inject = ['ShoppingListFactory'];
-
-    function ShowListController1 (ShoppingListFactory) {
-
-        // var itemAdder = this;
-        var list = this;
-        // use factory to create new shopping list
-        var shoppingList = ShoppingListFactory();
-
-        // retrieve items to display
-        list.items = shoppingList.getItems();
-
-        var orgTitle = "Shopping List#1 - unlimited";
-
-        list.title = orgTitle +" "+ list.items.length + " items";
-
-        list.itemName = "";
-        list.itemQuantity = "";
-
-
-        list.addItem = function () {
-            console.log("add item service");
-
-            shoppingList.addItem(list.itemName, list.itemQuantity);
-
-            list.title = orgTitle + list.items.length + " items";
-        };
-
-        list.removeItem = function (itemIndex) {
-
-            console.log("this is: ", this);
-
-            this.lastRemoved = "last removed was " + this.items[itemIndex].name;
-
-            shoppingList.removeItem(itemIndex);
-
-            // list.title = orgTitle + list.items.length + " items";
-            this.title = orgTitle + list.items.length + " items";
-
-        };
-
-
+    else {
+      $ctrl.showSpinner = false;
     }
+  });
 
-    // ShowListController2.$inject = ['ShoppingListFactory'];
-    //
-    // function ShowListController2(ShoppingListFactory) {
-    //
-    //     var list2 = this;
-    //
-    //     list2.itemName = "";
-    //     list2.itemQuantity = "";
-    //
-    //     // use factory to create new shopping list2 with limited items
-    //     var shoppingList = ShoppingListFactory(3);
-    //     console.log(shoppingList);
-    //
-    //     list2.items = shoppingList.getItems();
-    //
-    //
-    //     list2.removeItem = function (itemIndex) {
-    //         shoppingList.removeItem(itemIndex);
-    //     };
-    //
-    //     list2.addItem = function () {
-    //         try {
-    //             shoppingList.addItem(list2.itemName, list2.itemQuantity);
-    //
-    //         } catch (e) {
-    //             list2.errorMessage = e.message;
-    //             console.log(e.message);
-    //         }
-    //     };
-    //
-    // }
+  $ctrl.$onDestroy = function () {
+    cancelListener();
+  };
 
-    function ShoppingListService(maxItems) {
+};
 
-        var service = this;
-        // List of items
-        var items = [];
 
-        service.addItem = function (itemName, itemQuantity) {
+ShoppingListComponentController.$inject = ['$rootScope', '$element', '$q', 'WeightLossFilterService']
+function ShoppingListComponentController($rootScope, $element, $q, WeightLossFilterService) {
+  var $ctrl = this;
+  var totalItems;
 
-            if (maxItems === undefined) {
-                var item = {
-                    name: itemName,
-                    quantity: itemQuantity
-                };
-                items.push(item);
-                console.log(items);
+  $ctrl.$onInit = function () {
+    totalItems = 0;
+  };
 
-            } else if (maxItems !== undefined && items.length < maxItems) {
 
-                var item1 = {
-                    name: itemName,
-                    quantity: itemQuantity
-                };
-                items.push(item1);
-                console.log(items);
-            }
-            else {
-                throw new Error("max items (" + maxItems + ") reached");
-            }
-        };
+  $ctrl.$doCheck = function () {
+    if ($ctrl.items.length !== totalItems) {
+      totalItems = $ctrl.items.length;
 
-        service.getItems = function () {
-            return items;
-        };
+      $rootScope.$broadcast('shoppinglist:processing', {on: true});
+      var promises = [];
+      for (var i = 0; i < $ctrl.items.length; i++) {
+        promises.push(WeightLossFilterService.checkName($ctrl.items[i].name));
+      }
 
-        service.removeItem = function (itemIndex) {
-
-            items.splice(itemIndex, 1);
-
-        };
-
+      $q.all(promises)
+      .then(function (result) {
+        // Remove cookie warning
+        var warningElem = $element.find('div.error');
+        warningElem.slideUp(900);
+      })
+      .catch(function (result) {
+        // Show cookie warning
+        var warningElem = $element.find('div.error');
+        warningElem.slideDown(900);
+      })
+      .finally(function () {
+        $rootScope.$broadcast('shoppinglist:processing', { on: false });
+      });
     }
+  };
 
-    function ShoppingListFactory() {
-        var factory = function (maxItems) {
-            return new ShoppingListService(maxItems);
+  $ctrl.remove = function (myIndex) {
+    $ctrl.onRemove({ index: myIndex });
+  };
+}
 
-        };
-        return factory;
+
+ShoppingListController.$inject = ['ShoppingListFactory'];
+function ShoppingListController(ShoppingListFactory) {
+  var list = this;
+
+  // Use factory to create new shopping list service
+  var shoppingList = ShoppingListFactory();
+
+  list.items = shoppingList.getItems();
+  var origTitle = "Shopping List #1";
+  list.title = origTitle + " (" + list.items.length + " items )";
+
+  list.itemName = "";
+  list.itemQuantity = "";
+
+  list.addItem = function () {
+    shoppingList.addItem(list.itemName, list.itemQuantity);
+    list.title = origTitle + " (" + list.items.length + " items )";
+  }
+
+  list.removeItem = function (itemIndex) {
+    this.lastRemoved = "Last item removed was " + this.items[itemIndex].name;
+    shoppingList.removeItem(itemIndex);
+    this.title = origTitle + " (" + list.items.length + " items )";
+  };
+}
+
+
+// If not specified, maxItems assumed unlimited
+function ShoppingListService(maxItems) {
+  var service = this;
+
+  // List of shopping items
+  var items = [];
+
+  service.addItem = function (itemName, quantity) {
+    if ((maxItems === undefined) ||
+        (maxItems !== undefined) && (items.length < maxItems)) {
+      var item = {
+        name: itemName,
+        quantity: quantity
+      };
+      items.push(item);
     }
+    else {
+      throw new Error("Max items (" + maxItems + ") reached.");
+    }
+  };
 
-}) ();
+  service.removeItem = function (itemIndex) {
+    items.splice(itemIndex, 1);
+  };
+
+  service.getItems = function () {
+    return items;
+  };
+}
+
+
+function ShoppingListFactory() {
+  var factory = function (maxItems) {
+    return new ShoppingListService(maxItems);
+  };
+
+  return factory;
+}
+
+
+WeightLossFilterService.$inject = ['$q', '$timeout']
+function WeightLossFilterService($q, $timeout) {
+  var service = this;
+
+  service.checkName = function (name) {
+    var deferred = $q.defer();
+
+    var result = {
+      message: ""
+    };
+
+    $timeout(function () {
+      // Check for cookies
+      if (name.toLowerCase().indexOf('cookie') === -1) {
+        deferred.resolve(result)
+      }
+      else {
+        result.message = "Stay away from cookies, Yaakov!";
+        deferred.reject(result);
+      }
+    }, 3000);
+
+    return deferred.promise;
+  };
+
+
+  service.checkQuantity = function (quantity) {
+    var deferred = $q.defer();
+    var result = {
+      message: ""
+    };
+
+    $timeout(function () {
+      // Check for too many boxes
+      if (quantity < 6) {
+        deferred.resolve(result);
+      }
+      else {
+        result.message = "That's too much, Yaakov!";
+        deferred.reject(result);
+      }
+    }, 1000);
+
+    return deferred.promise;
+  };
+}
+
+})();
