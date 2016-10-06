@@ -22,8 +22,8 @@
     });
 
 
-    ShoppingListComponentController.$inject = ['$scope', '$element'];
-    function ShoppingListComponentController($scope, $element) {
+    ShoppingListComponentController.$inject = ['$element'];
+    function ShoppingListComponentController($element) {
 
         var $ctrl = this;
         var totalItems;
@@ -72,6 +72,26 @@
         //         }
         //     });
         // };
+
+        $ctrl.$doCheck = function () {
+            if($ctrl.items.length !== totalItems) {
+                console.log("# of items changed, checking for cookies");
+                totalItems = $ctrl.items.length;
+
+                console.log("DOM element ", $element);
+
+                if ($ctrl.cookiesInList()) {
+                    console.log("no cookie");
+                    var warnEle = $element.find('div.error');
+                    warnEle.slideDown(900);
+                }
+                else{
+                    console.log("no cookie here, move along");
+                    var warnEle = $element.find('div.error');
+                    warnEle.slideUp(900);
+                }
+            }
+        };
 
     }
 
