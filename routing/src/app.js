@@ -10,18 +10,15 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
 
   // Redirect to tab 1 if no other URL matches
   $urlRouterProvider.otherwise('/tab1');
-
-  // Set up UI states
-  $stateProvider
-    .state('tab1', {
+  // set up UI states
+  $stateProvider.state('tab1',{
+    //    Tab1 is matching directly with the name of the state Tab1 defined in html tags
       url: '/tab1',
       templateUrl: 'src/tab1.html'
-    })
-
-    .state('tab2', {
+  }).state('tab2',{
       url: '/tab2',
       templateUrl: 'src/tab2.html'
-    });
+  });
 }
 
 
