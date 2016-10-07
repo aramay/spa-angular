@@ -16,7 +16,12 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   }).state('mainList',{
       url: '/main-list',
       templateUrl: 'src/shoppinglist/templates/main-shoppinglist.template.html',
-      controller: 'MainShoppingListController as mainList'
+      controller: 'MainShoppingListController as mainList',
+      resolve: {
+          items: ['ShoppingListService', function (ShoppingListService) {
+              return ShoppingListService.getItems();
+          }]
+      }
   });
 }
 
