@@ -1,20 +1,12 @@
 <!DOCTYPE html>
-<html ng-app='RoutingApp'>
+<html ng-app='ShoppingList'>
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/styles.css">
-    <title>Intro to ui-router</title>
+    <title>No Cookie Shopping List</title>
   </head>
   <body>
-    <h1>Intro to ui-router</h1>
-
-    <div class="tabs">
-        <!-- ui-sref stands for UI router state reference. -->
-      <a ui-sref="tab1" ui-sref-active="activeTab">Tab 1</a></a>
-      <a ui-sref="tab2" ui-sref-active="activeTab">Tab 2</a></a>
-      <!-- <a ui-sref="tab2" ui-sref-active="activeTab">Tab 2</a> --> -->
-      <!-- <button ui-sref="tab2">Tab 2</button> -->
-    </div>
+    <h1>Welcome to Premade No Cookie Shopping List</h1>
 
     <ui-view></ui-view>
 
@@ -23,7 +15,15 @@
     <script src="lib/angular-ui-router.min.js"></script>
 
     <!-- Modules -->
-    <script src="src/app.js"></script>
+    <script src="src/shoppinglist/shoppinglist.module.js"></script>
+
+    <!-- Routes -->
+    <script src="src/routes.js"></script>
+
+    <!-- 'ShoppingList' module artifacts -->
+    <script src="src/shoppinglist/shoppinglist.component.js"></script>
+    <script src="src/shoppinglist/main-shoppinglist.controller.js"></script>
+    <script src="src/shoppinglist/shoppinglist.service.js"></script>
 
   </body>
 </html>
