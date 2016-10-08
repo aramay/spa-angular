@@ -22,21 +22,29 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
               return ShoppingListService.getItems();
           }]
       }
-  }).state('itemDetail',{
-      url: '/item-detail/{itemId}',
+
+    //   item Details inheriting form mainList
+  }).state('mainList.itemDetail',{
+    //   url: '/item-detail/{itemId}',
+    //  we did not associate a URL together with that state.
       templateUrl: 'src/shoppinglist/templates/item-detail.template.html',
       controller: 'ItemDetailController as itemdetail',
-      resolve:{
-          item:['$stateParams', 'ShoppingListService',
-                    function ($stateParams, ShoppingListService) {
-                        return ShoppingListService.getItems()
-                            .then(function (items) {
-                                // console.log(items);
-                                // console.log(items[$stateParams.itemId]);
-                                return items[$stateParams.itemId];
-                            });
-          }]
+      params: {
+          itemId: null
       }
+
+
+    //   resolve:{
+    //       item:['$stateParams', 'ShoppingListService',
+    //                 function ($stateParams, ShoppingListService) {
+    //                     return ShoppingListService.getItems()
+    //                         .then(function (items) {
+    //                             // console.log(items);
+    //                             // console.log(items[$stateParams.itemId]);
+    //                             return items[$stateParams.itemId];
+    //                         });
+    //       }]
+    //   }
 
   });
 }
