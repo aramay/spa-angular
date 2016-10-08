@@ -14,3 +14,11 @@ div.tabs {
 .activeTab {
   font-weight: bold;
 }
+
+li[ui-sref]:hover{
+    display: inline;
+    cursor: pointer;
+    border: solid black 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
