@@ -1,0 +1,19 @@
+<ul>
+    <!-- this title name is coming from our directive when we gave it the title property on our scope. -->
+    <h3>{{$ctrl.title}}</h3>
+    <li ng-repeat="item in $ctrl.items">
+        {{item.quantity}} of {{item.name}}
+
+        <!-- <button ng-click="$ctrl.badRemove($index)">
+            Bad Remove Item
+        </button> -->
+
+        <!-- button just goes on click and it calls a method on the controller directly, passing it the $index that is provided by the ng-repeat directive, -->
+        <button ng-click="$ctrl.remove($index)">
+            Remove Item
+        </button>
+
+    </li>
+</ul>
+
+<div class="error">Error: No cookie ALLOWED !!</div>
