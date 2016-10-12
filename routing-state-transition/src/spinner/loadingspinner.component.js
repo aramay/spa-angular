@@ -11,6 +11,9 @@ angular.module('Spinner')
 
 SpinnerController.$inject = ['$rootScope'];
 function SpinnerController($rootScope) {
+
+  console.log($rootScope);
+  
   var $ctrl = this;
   var cancellers = [];
 
