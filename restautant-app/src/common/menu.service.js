@@ -21,6 +21,7 @@
 
             return $http(paramsCategories).then(function (response) {
 
+                console.log("http success ", response.data);
                 return response.data;
 
             }, function error(error) {
