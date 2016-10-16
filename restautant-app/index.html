@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="css/restaurant.css">
   </head>
   <body ng-app="restaurant" ng-strict-di>
+
+      <!-- Fixed position loading indicator -->
+      <loading class="loading-indicator"></loading>
+
     <header>
       <nav id="header-nav" class="navbar navbar-default">
         <div class="container">
@@ -113,6 +117,11 @@
 
     <!-- Main Restaurant Module -->
     <script src="src/restaurant.module.js"></script>
+
+    <!-- Common Module -->
+    <script src="src/common/common.module.js"></script>
+    <script src="src/common/loading/loading.component.js"></script>
+    <script src="src/common/loading/loading.interceptor.js"></script>
 
     <!-- Public Module -->
     <script src="src/public/public.module.js"></script>
