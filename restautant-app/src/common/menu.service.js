@@ -1,11 +1,14 @@
 (function () {
     "use strict";
 
-    angular.module('common').
-    service('MenuService', MenuService);
+    angular.module('common')
+    .service('MenuService', MenuService);
 
     MenuService.$inject = ['$http', 'ApiPath'];
     function MenuService($http, ApiPath) {
+
+        console.log("menu service called");
+
         var service = this;
 
         var paramsCategories = {
