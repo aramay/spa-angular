@@ -18,6 +18,9 @@ function routeConfig ($stateProvider) {
     .state('public.home', {
       url: '/',
       templateUrl: 'src/public/home/home.html'
-    });
+  }).state('public.menu',{
+      url: '/menu',
+      templateUrl:'src/public/menu/menu.html'
+  });
 }
 })();
