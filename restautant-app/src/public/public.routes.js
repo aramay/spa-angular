@@ -22,7 +22,7 @@ function routeConfig ($stateProvider) {
       url: '/menu',
       templateUrl:'src/public/menu/menu.html',
       controller: 'MenuController as menuCtrl',
-      resolve:{
+      resolve: {
           menuCategories: ['MenuService', function (MenuService) {
               return MenuService.getCategories();
           }]
