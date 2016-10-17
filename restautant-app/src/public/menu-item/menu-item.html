@@ -1,0 +1,17 @@
+
+<div class="menu-item-tile col-md-6">
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="menu-item-photo">
+        <div>{{$ctrl.menuitems.menu_item.short_name}}</div>
+        <img class="img-responsive" width="250" height="150" src="images/menu/{{catShortName}}/{{short_name}}.jpg" alt="{{$ctrl.menuitems.menu_item.name}}">
+      </div>
+      <div class="menu-item-price">{{$ctrl.menuitems.menu_item.price_small}}<span> {{$ctrl.menuitems.menu_item.small_portion_name}}</span> {{$ctrl.menuitems.menu_item.price_large}} <span>{{$ctrl.menuitems.menu_item.large_portion_name}}</span></div>
+    </div>
+    <div class="menu-item-description col-sm-7">
+      <h3 class="menu-item-title">{{$ctrl.menuitems.menu_item.name}}</h3>
+      <p class="menu-item-details">{{$ctrl.menuitems.menu_item.description}}</p>
+    </div>
+  </div>
+  <hr class="visible-xs">
+</div>
