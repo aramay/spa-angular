@@ -18,6 +18,24 @@ function routeConfig ($stateProvider) {
     .state('public.home', {
       url: '/',
       templateUrl: 'src/public/home/home.html'
-    });
+  }).state('public.menu',{
+      url: '/menu',
+      templateUrl:'src/public/menu/menu.html',
+      controller: 'MenuController as menuCtrl',
+      resolve: {
+          menuCategories: ['MenuService', function (MenuService) {
+              return MenuService.getCategories();
+          }]
+      }
+  }).state('public.menuitems',{
+      url: '/menu/{category}',
+      templateUrl:'src/public/menu-items/menu-items.html',
+      controller: 'MenuItemsController as menuItemsCtrl',
+      resolve:{
+          menuItems: ['MenuService', '$stateParams', function (MenuService, $stateParams) {
+              return MenuService.getMenuItems($stateParams.category);
+          }]
+      }
+  });
 }
 })();
